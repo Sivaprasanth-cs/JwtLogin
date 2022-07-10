@@ -1,7 +1,7 @@
 const dbConn = require("../dbConnection");
 const { signJWTtoken, verifyJWTtoken } = require("../utilities/auth");
 var bcrypt = require("bcryptjs");
-
+const logger = require('../controllers/logger');
 
 
 
@@ -31,6 +31,7 @@ const loginuser = async (req, res) => {
         let data = { id: id, username: dbUsername };
         let token = await signJWTtoken(data);
         res.send({ token });
+        logger.userLogger.log('info','Registered successfully')
       } else {
         // authentication successful
         res.send({ token: null });
